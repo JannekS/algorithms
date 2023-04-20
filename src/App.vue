@@ -1,9 +1,25 @@
 <template>
-  <div class="w-96 h-screen mx-auto bg-green-400">
-    <h2 class="p-8 text-center text-2xl font-bold text-slate-700">Hello Vue World!</h2>
+  <div>
+    <the-header />
+
+    <main>
+      <router-view />
+    </main>
+
+    <footer>
+      <h3>The footer will be right here...</h3>
+    </footer>
   </div>
 </template>
 
-<script></script>
+<script>
+import TheHeader from '@/components/TheHeader.vue';
+export default {
+  name: 'App',
+  components: {
+    TheHeader,
+  },
+};
+</script>
 
 <style scoped></style>
