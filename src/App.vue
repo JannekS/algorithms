@@ -6,18 +6,18 @@
       <router-view />
     </main>
 
-    <footer>
-      <h3>The footer will be right here...</h3>
-    </footer>
+    <the-footer />
   </div>
 </template>
 
 <script>
 import TheHeader from '@/components/TheHeader.vue';
+import TheFooter from '@/components/TheFooter.vue';
 export default {
   name: 'App',
   components: {
     TheHeader,
+    TheFooter,
   },
 };
 </script>
