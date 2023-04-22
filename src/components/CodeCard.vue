@@ -6,6 +6,7 @@
       <div
         id="card-container"
         class="relative w-full h-full transition-all duration-700 [transform-style:preserve-3d]"
+        :class="cardRotate"
       >
         <!-- front side -->
         <div class="absolute rounded-lg w-full h-full bg-slate-700 [backface-visibility:hidden]">
@@ -105,21 +106,16 @@
             <div class="relative bottom-0 left-0 w-full flex flex-row justify-between">
               <div>
                 <!-- Back Right Button -->
-                <button id="back-btn" class="card-button">
-                  <img src="/icons/backward-fast-solid.svg" alt="run code" class="w-4 h-4" />
-                  <span class="hidden md:flex">Go Back</span>
-                </button>
+                <base-button
+                  value="Go Back"
+                  imgUrl="/icons/backward-fast-solid.svg"
+                  @btnClicked="flipToFront"
+                ></base-button>
               </div>
               <!-- Back Left Buttons -->
               <div class="flex flex-row">
-                <button class="card-button">
-                  <img src="/icons/repeat-solid.svg" alt="repeat" class="w-4 h-4" />
-                  <span class="hidden md:flex">Replay</span>
-                </button>
-                <button class="card-button">
-                  <img src="/icons/shuffle-solid.svg" alt="randomize" class="w-4 h-4" />
-                  <span class="hidden md:flex">Shuffle Array</span>
-                </button>
+                <base-button value="Replay" imgUrl="/icons/repeat-solid.svg"></base-button>
+                <base-button value="Shuffle Array" imgUrl="/icons/shuffle-solid.svg"></base-button>
               </div>
             </div>
           </div>
@@ -141,15 +137,13 @@ export default {
       frontBtnImg: '/icons/code-solid.svg',
       displayInfo: '',
       displayCode: 'hidden',
+      cardRotate: '',
       cardHeading: 'Simple for-loop',
       infoTitle: 'Basic Info',
       infoText:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.',
       //TODO: format this so code will display properly
-      codeExample: `for (i = 0; i &lt; 10; i++) {  
-    console.log("Hello World!");
-    console.log("I like code!");
-}`,
+      codeExample: `\nfor (i = 0; i &lt; 10; i++) { \n\tconsole.log("Hello World!"); \n\tconsole.log("I like code!");\n}`,
     };
   },
   methods: {
@@ -169,7 +163,11 @@ export default {
       }
     },
     runCode() {
-      console.log('This click will flip the card soon.');
+      console.log(forLoop);
+      this.cardRotate = '[transform:rotateY(180deg)]';
+    },
+    flipToFront() {
+      this.cardRotate = '';
     },
   },
 };
@@ -180,3 +178,5 @@ export default {
   @apply flex flex-row text-xs text-black justify-center items-center p-2 space-x-2 font-mono rounded-lg bg-lime-600 m-2 hover:bg-lime-500;
 }
 </style>
+
+function flipCard() { cardContainer.classList.toggle("[transform:rotateY(180deg)]"); }
