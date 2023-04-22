@@ -33,7 +33,7 @@
                 </p>
               </div>
               <div id="code-example" class="text-xs md:text-sm" :class="displayCode">
-                <pre>
+                <pre class="language-javascript line-numbers">
                     <code class="font-mono">
                         {{ codeExample }}
                     </code>
@@ -126,6 +126,10 @@
 </template>
 
 <script>
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-okaidia.css';
+// import 'prismjs/plugins/line-numbers/prism-line-numbers';
+// import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import BaseButton from '@/components/BaseButton.vue';
 export default {
   name: 'CodeCard',
@@ -146,6 +150,9 @@ export default {
       codeExample: `\nfor (i = 0; i &lt; 10; i++) { \n\tconsole.log("Hello World!"); \n\tconsole.log("I like code!");\n}`,
     };
   },
+  mounted() {
+    Prism.highlightAll();
+  },
   methods: {
     toggleInfoCode() {
       if (this.frontContent === 'info') {
@@ -163,7 +170,7 @@ export default {
       }
     },
     runCode() {
-      console.log(forLoop);
+      // TODO: Trigger animation on the back side.
       this.cardRotate = '[transform:rotateY(180deg)]';
     },
     flipToFront() {
