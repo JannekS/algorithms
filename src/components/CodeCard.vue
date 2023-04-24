@@ -9,117 +9,94 @@
         :class="cardRotate"
       >
         <!-- front side -->
-        <div class="absolute rounded-lg w-full h-full bg-slate-700 [backface-visibility:hidden]">
-          <div class="flex flex-col w-full h-full">
-            <!-- Card Header -->
-            <div class="w-full border-b border-b-slate-500 flex flex-row items-center">
-              <!-- Iconic Buttons -->
-              <div class="rounded-full h-2 w-2 ml-2 shrink-0 bg-red-500"></div>
-              <div class="rounded-full h-2 w-2 ml-1 shrink-0 bg-yellow-400"></div>
-              <div class="rounded-full h-2 w-2 ml-1 shrink-0 bg-green-500"></div>
-              <!-- Card Heading -->
-              <div class="ml-4 py-2 text-slate-400">
-                <h2 class="text-lg font-bold">{{ cardHeading }}</h2>
-              </div>
+        <code-card-layout :cardHeading="cardHeading">
+          <template #content>
+            <!-- Basic Info -->
+            <div v-show="!displayCode" id="code-info" :class="displayInfo">
+              <h2 class="text-lg font-bold font-mono">{{ infoTitle }}</h2>
+              <p>
+                {{ infoText }}
+              </p>
             </div>
-            <!-- Card Main Content -->
-            <div
-              class="flex-auto text-slate-200 p-2 border-b border-b-slate-500 overflow-y-auto md:px-4"
-            >
-              <div id="code-info" :class="displayInfo">
-                <h2 class="text-lg font-bold font-mono">{{ infoTitle }}</h2>
-                <p>
-                  {{ infoText }}
-                </p>
-              </div>
-              <div id="code-example" class="text-xs md:text-sm" :class="displayCode">
-                <pre class="language-javascript line-numbers">
-                    <code class="font-mono">
+            <!-- Code Example -->
+            <div v-show="displayCode" id="code-example" class="text-xs md:text-sm">
+              <!-- TODO: Change background color of code snippet. -->
+              <pre class="language-javascript">
+                    <code class="font-mono ">
                         {{ codeExample }}
                     </code>
                   </pre>
-              </div>
             </div>
+          </template>
 
-            <!-- Card Footer -->
-            <div class="relative bottom-0 left-0 w-full flex flex-row justify-between">
-              <!-- Left Button -->
-              <div class="flex">
-                <base-button
-                  :value="frontBtnValue"
-                  :imgUrl="frontBtnImg"
-                  @btnClicked="toggleInfoCode"
-                ></base-button>
-              </div>
-              <!-- Right Button -->
-              <div>
-                <base-button
-                  value="Run Code"
-                  imgUrl="/icons/circle-play-regular.svg"
-                  @btnClicked="runCode"
-                ></base-button>
-              </div>
+          <template #footer>
+            <!-- Left Button -->
+            <div>
+              <base-button
+                v-show="!displayCode"
+                value="Show Code"
+                imgUrl="/icons/code-solid.svg"
+                @btnClicked="toggleInfoCode"
+              ></base-button>
+              <base-button
+                v-show="displayCode"
+                value="Show Info"
+                imgUrl="/icons/info-solid.svg"
+                @btnClicked="toggleInfoCode"
+              ></base-button>
             </div>
-          </div>
-        </div>
+            <!-- Right Button -->
+            <div>
+              <base-button
+                value="Run Code"
+                imgUrl="/icons/circle-play-regular.svg"
+                @btnClicked="runCode"
+              ></base-button>
+            </div>
+          </template>
+        </code-card-layout>
+
         <!-- Back Side -->
-        <div
-          class="absolute rounded-lg w-full h-full bg-slate-700 [transform:rotateY(180deg)] [backface-visibility:hidden]"
-        >
-          <div class="flex flex-col w-full h-full">
-            <!-- Back Header -->
-            <div class="w-full border-b border-b-slate-500 flex flex-row items-center">
-              <!-- Iconic Buttons -->
-              <div class="rounded-full h-2 w-2 ml-2 shrink-0 bg-red-500"></div>
-              <div class="rounded-full h-2 w-2 ml-1 shrink-0 bg-yellow-400"></div>
-              <div class="rounded-full h-2 w-2 ml-1 shrink-0 bg-green-500"></div>
-              <div class="ml-4 py-2 text-slate-400">
-                <h2 class="text-lg font-bold">Output</h2>
-              </div>
+        <code-card-layout :cardHeading="cardHeading" rotated="[transform:rotateY(180deg)]">
+          <template #content>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+            <p>> Hello World!</p>
+            <p>> I like code!</p>
+          </template>
+
+          <template #footer>
+            <!-- Back Right Button -->
+            <div>
+              <base-button
+                value="Go Back"
+                imgUrl="/icons/backward-fast-solid.svg"
+                @btnClicked="flipToFront"
+              ></base-button>
             </div>
-            <!-- Back Main Content -->
-            <div
-              class="flex-auto text-xs font-mono text-slate-200 p-2 h-80 border-b border-b-slate-500"
-            >
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
-              <p>> Hello World!</p>
-              <p>> I like code!</p>
+            <!-- Back Left Buttons -->
+            <div class="flex flex-row">
+              <base-button value="Replay" imgUrl="/icons/repeat-solid.svg"></base-button>
+              <base-button value="Shuffle Array" imgUrl="/icons/shuffle-solid.svg"></base-button>
             </div>
-            <!-- Back Footer -->
-            <div class="relative bottom-0 left-0 w-full flex flex-row justify-between">
-              <div>
-                <!-- Back Right Button -->
-                <base-button
-                  value="Go Back"
-                  imgUrl="/icons/backward-fast-solid.svg"
-                  @btnClicked="flipToFront"
-                ></base-button>
-              </div>
-              <!-- Back Left Buttons -->
-              <div class="flex flex-row">
-                <base-button value="Replay" imgUrl="/icons/repeat-solid.svg"></base-button>
-                <base-button value="Shuffle Array" imgUrl="/icons/shuffle-solid.svg"></base-button>
-              </div>
-            </div>
-          </div>
-        </div>
+          </template>
+        </code-card-layout>
       </div>
     </div>
   </div>
@@ -128,26 +105,22 @@
 <script>
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css';
-// import 'prismjs/plugins/line-numbers/prism-line-numbers';
-// import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import BaseButton from '@/components/BaseButton.vue';
+import CodeCardLayout from '@/components/CodeCardLayout.vue';
 export default {
   name: 'CodeCard',
-  components: { BaseButton },
+  components: { BaseButton, CodeCardLayout },
   data() {
     return {
-      frontContent: 'info',
-      frontBtnValue: 'Show Code',
-      frontBtnImg: '/icons/code-solid.svg',
       displayInfo: '',
-      displayCode: 'hidden',
+      displayCode: false,
       cardRotate: '',
       cardHeading: 'Simple for-loop',
       infoTitle: 'Basic Info',
       infoText:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.',
       //TODO: format this so code will display properly
-      codeExample: `\nfor (i = 0; i &lt; 10; i++) { \n\tconsole.log("Hello World!"); \n\tconsole.log("I like code!");\n}`,
+      codeExample: `\nfor (i = 0; i < 10; i++) { \n\tconsole.log("Hello World!"); \n\tconsole.log("I like code!");\n}`,
     };
   },
   mounted() {
@@ -155,19 +128,7 @@ export default {
   },
   methods: {
     toggleInfoCode() {
-      if (this.frontContent === 'info') {
-        this.frontContent = 'code';
-        this.frontBtnValue = 'Show Info';
-        this.frontBtnImg = '/icons/info-solid.svg';
-        this.displayCode = 'block';
-        this.displayInfo = 'hidden';
-      } else {
-        this.frontContent = 'info';
-        this.frontBtnValue = 'Show Code';
-        this.frontBtnImg = '/icons/code-solid.svg';
-        this.displayCode = 'hidden';
-        this.displayInfo = '';
-      }
+      this.displayCode = !this.displayCode;
     },
     runCode() {
       // TODO: Trigger animation on the back side.
