@@ -59,26 +59,14 @@
         <!-- Back Side -->
         <code-card-layout :cardHeading="cardHeading" rotated="[transform:rotateY(180deg)]">
           <template #content>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
-            <p>> Hello World!</p>
-            <p>> I like code!</p>
+            <div class="flex flex-row justify-center items-end h-full py-6 space-x-2">
+              <div
+                v-for="(num, index) in sortArray"
+                :key="index"
+                class="w-4 bg-slate-200 rounded-sm"
+                :style="{ height: num * 6 + 'px' }"
+              ></div>
+            </div>
           </template>
 
           <template #footer>
@@ -115,12 +103,13 @@ export default {
       displayInfo: '',
       displayCode: false,
       cardRotate: '',
-      cardHeading: 'Simple for-loop',
+      cardHeading: 'bubbleSort',
       infoTitle: 'Basic Info',
       infoText:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.',
       //TODO: format this so code will display properly
       codeExample: `\nfor (i = 0; i < 10; i++) { \n\tconsole.log("Hello World!"); \n\tconsole.log("I like code!");\n}`,
+      sortArray: [6, 30, 21, 9, 5, 18, 35, 47, 19, 3, 41, 15, 29, 31, 7, 45, 30, 8, 14, 28],
     };
   },
   mounted() {
@@ -130,21 +119,32 @@ export default {
     toggleInfoCode() {
       this.displayCode = !this.displayCode;
     },
-    runCode() {
+    async runCode() {
       // TODO: Trigger animation on the back side.
       this.cardRotate = '[transform:rotateY(180deg)]';
+      await this.delay(1000);
+      this.bubbleSort(this.sortArray);
     },
     flipToFront() {
       this.cardRotate = '';
+    },
+    async bubbleSort(arr) {
+      for (let i = arr.length; i > 0; i--) {
+        for (var j = 0; j < i - 1; j++) {
+          if (arr[j] > arr[j + 1]) {
+            let temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+          }
+          await this.delay(200);
+        }
+      }
+    },
+    delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
     },
   },
 };
 </script>
 
-<style scoped>
-.card-button {
-  @apply flex flex-row text-xs text-black justify-center items-center p-2 space-x-2 font-mono rounded-lg bg-lime-600 m-2 hover:bg-lime-500;
-}
-</style>
-
-function flipCard() { cardContainer.classList.toggle("[transform:rotateY(180deg)]"); }
+<style scoped></style>
