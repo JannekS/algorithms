@@ -61,10 +61,11 @@
           <template #content>
             <div class="flex flex-row justify-center items-end h-full py-6 space-x-2">
               <div
-                v-for="(num, index) in sortArray"
-                :key="index"
-                class="w-4 bg-slate-200 rounded-sm"
+                v-for="(num, i) in sortArray"
+                :key="i"
+                class="w-4 rounded-sm bg-slate-200"
                 :style="{ height: num * 6 + 'px' }"
+                :class="{ 'bg-cyan-400': i === slectedElement, 'bg-lime-500': i > sortedElement }"
               ></div>
             </div>
           </template>
@@ -111,6 +112,8 @@ export default {
       codeExample:
         '\nbubbleSort(arr) {\n\tfor (let i = arr.length; i > 0; i--) {\n\t\tfor (var j = 0; j < i - 1; j++) {\n\t\t\tif (arr[j] > arr[j + 1]) {\n\t\t\t\tlet temp = arr[j];\n\t\t\t\tarr[j] = arr[j + 1];\n\t\t\t\tarr[j + 1] = temp;\n\t\t\t}\n\t\t}\n\t}\n}',
       sortArray: [6, 30, 21, 9, 5, 18, 35, 47, 19, 3, 41, 15, 29, 31, 7, 45, 30, 8, 14, 28],
+      slectedElement: 0,
+      sortedElement: 200,
     };
   },
   mounted() {
@@ -132,14 +135,18 @@ export default {
     async bubbleSort(arr) {
       for (let i = arr.length; i > 0; i--) {
         for (var j = 0; j < i - 1; j++) {
+          this.sortedElement = i;
+          this.slectedElement = j;
           if (arr[j] > arr[j + 1]) {
+            this.slectedElement = j + 1;
             let temp = arr[j];
             arr[j] = arr[j + 1];
             arr[j + 1] = temp;
           }
-          await this.delay(200);
+          await this.delay(300);
         }
       }
+      this.sortedElement = 0;
     },
     delay(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
