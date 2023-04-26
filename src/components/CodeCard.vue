@@ -50,7 +50,7 @@
               <base-button
                 value="Run Code"
                 imgUrl="/icons/circle-play-regular.svg"
-                @btnClicked="runCode"
+                @btnClicked="flipToBack"
               ></base-button>
             </div>
           </template>
@@ -85,8 +85,16 @@
             </div>
             <!-- Back Left Buttons -->
             <div class="flex flex-row">
-              <base-button value="Replay" imgUrl="/icons/repeat-solid.svg"></base-button>
-              <base-button value="Shuffle Array" imgUrl="/icons/shuffle-solid.svg"></base-button>
+              <base-button
+                value="Replay"
+                imgUrl="/icons/repeat-solid.svg"
+                @btnClicked="runCode"
+              ></base-button>
+              <base-button
+                value="Shuffle Array"
+                imgUrl="/icons/shuffle-solid.svg"
+                @btnClicked="resetVisual"
+              ></base-button>
             </div>
           </template>
         </code-card-layout>
@@ -118,6 +126,7 @@ export default {
       sortArray: [6, 30, 21, 9, 5, 18, 35, 47, 19, 3, 41, 15, 29, 31, 7, 45, 30, 8, 14, 28],
       selectedElement: 0,
       sortedElement: 100,
+      reset: false,
     };
   },
   mounted() {
@@ -127,17 +136,38 @@ export default {
     toggleInfoCode() {
       this.displayCode = !this.displayCode;
     },
-    async runCode() {
+    async flipToBack() {
       this.cardRotate = '[transform:rotateY(180deg)]';
       await this.delay(1000);
-      this.bubbleSort(this.sortArray);
+      this.runCode();
     },
     flipToFront() {
       this.cardRotate = '';
+      this.resetVisual();
+    },
+    async runCode() {
+      this.reset = false;
+      this.bubbleSort(this.sortArray);
+    },
+    resetVisual() {
+      this.reset = true;
+      this.randomizeArray();
+      this.selectedElement = 0;
+      this.sortedElement = 100;
+    },
+    randomizeArray() {
+      this.sortArray = [];
+      for (let i = 0; i < 20; i++) {
+        let randInt = Math.floor(Math.random() * 50);
+        this.sortArray.push(randInt);
+      }
     },
     async bubbleSort(arr) {
       for (let i = arr.length; i > 0; i--) {
         for (var j = 0; j < i - 1; j++) {
+          if (this.reset) {
+            return;
+          }
           this.sortedElement = i;
           this.selectedElement = j;
           if (arr[j] > arr[j + 1]) {
