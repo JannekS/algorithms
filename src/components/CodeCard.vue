@@ -158,13 +158,13 @@ export default {
     randomizeArray() {
       this.sortArray = [];
       for (let i = 0; i < 20; i++) {
-        let randInt = Math.floor(Math.random() * 50);
+        let randInt = Math.floor(Math.random() * 49 + 1);
         this.sortArray.push(randInt);
       }
     },
     async bubbleSort(arr) {
       for (let i = arr.length; i > 0; i--) {
-        for (var j = 0; j < i - 1; j++) {
+        for (let j = 0; j < i - 1; j++) {
           if (this.reset) {
             return;
           }
