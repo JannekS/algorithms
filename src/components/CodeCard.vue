@@ -66,8 +66,14 @@
                 class="w-4 rounded-sm"
                 :class="{
                   'bg-cyan-400': index === selectedElement,
-                  'bg-lime-500': index >= sortedElement,
-                  'bg-slate-200': index < sortedElement && index != selectedElement,
+                  'bg-lime-500': index <= sortedElement,
+                  'bg-orange-400': index === minElement,
+                  'bg-orange-300': index === swapElement && index !== minElement,
+                  'bg-slate-200':
+                    index > sortedElement &&
+                    index != selectedElement &&
+                    index != minElement &&
+                    index != swapElement,
                 }"
                 :style="{ height: num * 6 + 'px' }"
               ></div>
@@ -125,7 +131,9 @@ export default {
         '\nbubbleSort(arr) {\n\tfor (let i = arr.length; i > 0; i--) {\n\t\tfor (var j = 0; j < i - 1; j++) {\n\t\t\tif (arr[j] > arr[j + 1]) {\n\t\t\t\tlet temp = arr[j];\n\t\t\t\tarr[j] = arr[j + 1];\n\t\t\t\tarr[j + 1] = temp;\n\t\t\t}\n\t\t}\n\t}\n}',
       sortArray: [6, 30, 21, 9, 5, 18, 35, 47, 19, 3, 41, 15, 29, 31, 7, 45, 30, 8, 14, 28],
       selectedElement: 0,
-      sortedElement: 100,
+      minElement: 0,
+      swapElement: 0,
+      sortedElement: -1,
       reset: false,
     };
   },
@@ -147,13 +155,14 @@ export default {
     },
     async runCode() {
       this.reset = false;
-      this.bubbleSort(this.sortArray);
+      // this.bubbleSort(this.sortArray);
+      this.selectionSort(this.sortArray);
     },
     resetVisual() {
       this.reset = true;
       this.randomizeArray();
       this.selectedElement = 0;
-      this.sortedElement = 100;
+      this.sortedElement = -1;
     },
     randomizeArray() {
       this.sortArray = [];
@@ -181,6 +190,34 @@ export default {
       }
       this.sortedElement = 0;
     },
+    async selectionSort(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        let minIndex = i;
+        this.minElement = i;
+        this.swapElement = i;
+        for (let j = i + 1; j < arr.length; j++) {
+          if (this.reset) {
+            return;
+          }
+          this.selectedElement = j;
+          if (arr[j] < arr[minIndex]) {
+            minIndex = j;
+            this.minElement = j;
+          }
+          await this.delay(300);
+        }
+        if (minIndex !== i) {
+          let temp = arr[i];
+          arr[i] = arr[minIndex];
+          arr[minIndex] = temp;
+        }
+        this.minElement = i;
+        this.swapElement = minIndex;
+        await this.delay(500);
+        this.sortedElement = i;
+      }
+      this.sortedElement = i + 1;
+    },
     delay(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
     },
@@ -189,3 +226,9 @@ export default {
 </script>
 
 <style scoped></style>
+
+<!-- :class="{
+                  'bg-cyan-400': index === selectedElement,
+                  'bg-lime-500': index >= sortedElement,
+                  'bg-slate-200': index < sortedElement && index != selectedElement,
+                }" -->
