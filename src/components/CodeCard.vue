@@ -9,21 +9,22 @@
         :class="cardRotate"
       >
         <!-- front side -->
-        <code-card-layout :cardHeading="cardHeading">
+        <code-card-layout :cardHeading="algorithmData.name">
           <template #content>
             <!-- Basic Info -->
             <div v-show="!displayCode" id="code-info" :class="displayInfo">
-              <h2 class="text-lg font-bold font-mono">{{ infoTitle }}</h2>
+              <h2 class="text-lg font-bold font-mono">Basic Info</h2>
               <p>
-                {{ infoText }}
+                {{ algorithmData.description }}
               </p>
+              <p>Time Complexity: {{ algorithmData.complexity }}</p>
             </div>
             <!-- Code Example -->
             <div v-show="displayCode" id="code-example" class="text-xs md:text-sm">
               <!-- TODO: Change background color of code snippet. -->
               <pre class="language-javascript">
                     <code class="font-mono ">
-                        {{ codeExample }}
+                        {{ algorithmData.codeString }}
                     </code>
                   </pre>
             </div>
@@ -57,24 +58,14 @@
         </code-card-layout>
 
         <!-- Back Side -->
-        <code-card-layout :cardHeading="cardHeading" rotated="[transform:rotateY(180deg)]">
+        <code-card-layout :cardHeading="algorithmData.name" rotated="[transform:rotateY(180deg)]">
           <template #content>
             <div class="flex flex-row justify-center items-end h-full py-6 space-x-2">
               <div
                 v-for="(num, index) in sortArray"
                 :key="index"
                 class="w-4 rounded-sm"
-                :class="{
-                  'bg-cyan-400': index === selectedElement,
-                  'bg-lime-500': index <= sortedElement,
-                  'bg-orange-400': index === minElement,
-                  'bg-orange-300': index === swapElement && index !== minElement,
-                  'bg-slate-200':
-                    index > sortedElement &&
-                    index != selectedElement &&
-                    index != minElement &&
-                    index != swapElement,
-                }"
+                :class="paintBars(index)"
                 :style="{ height: num * 6 + 'px' }"
               ></div>
             </div>
@@ -117,23 +108,30 @@ import CodeCardLayout from '@/components/CodeCardLayout.vue';
 export default {
   name: 'CodeCard',
   components: { BaseButton, CodeCardLayout },
+  props: {
+    algorithmData: {
+      type: Object,
+      default() {
+        return {
+          name: 'Something went wrong...',
+          description:
+            'You managed to open the card without selecting an algorithm. Please close the card and try to select an algorithm.',
+        };
+      },
+    },
+  },
   data() {
     return {
       displayInfo: '',
       displayCode: false,
       cardRotate: '',
-      cardHeading: 'bubbleSort',
-      infoTitle: 'Basic Info',
-      infoText:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.',
-      //TODO: format this so code will display properly
-      codeExample:
-        '\nbubbleSort(arr) {\n\tfor (let i = arr.length; i > 0; i--) {\n\t\tfor (var j = 0; j < i - 1; j++) {\n\t\t\tif (arr[j] > arr[j + 1]) {\n\t\t\t\tlet temp = arr[j];\n\t\t\t\tarr[j] = arr[j + 1];\n\t\t\t\tarr[j + 1] = temp;\n\t\t\t}\n\t\t}\n\t}\n}',
       sortArray: [6, 30, 21, 9, 5, 18, 35, 47, 19, 3, 41, 15, 29, 31, 7, 45, 30, 8, 14, 28],
-      selectedElement: 0,
-      minElement: 0,
-      swapElement: 0,
-      sortedElement: -1,
+      colorMarkers: {
+        selectedElement: -1,
+        minElement: -1,
+        swapElement: -1,
+        sortedElements: [],
+      },
       reset: false,
     };
   },
@@ -157,6 +155,19 @@ export default {
       this.reset = false;
       // this.bubbleSort(this.sortArray);
       this.selectionSort(this.sortArray);
+    },
+    paintBars(index) {
+      if (index === this.colorMarkers.selectedElement) {
+        return 'bg-cyan-400';
+      } else if (this.colorMarkers.sortedElements.includes(index)) {
+        return 'bg-lime-500';
+      } else if (index === this.colorMarkers.minElement) {
+        return 'bg-orange-400';
+      } else if (index === this.colorMarkers.swapElement) {
+        return 'bg-orange-300';
+      } else {
+        return 'bg-slate-200';
+      }
     },
     resetVisual() {
       this.reset = true;
@@ -216,7 +227,6 @@ export default {
         await this.delay(500);
         this.sortedElement = i;
       }
-      this.sortedElement = i + 1;
     },
     delay(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
