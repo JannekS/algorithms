@@ -23,10 +23,10 @@
             <div v-show="displayCode" id="code-example" class="text-xs md:text-sm">
               <!-- TODO: Change background color of code snippet. -->
               <pre class="language-javascript">
-                    <code class="font-mono ">
-                        {{ algorithmData.codeString }}
-                    </code>
-                  </pre>
+                <code class="font-mono ">
+                    {{ algorithmData.codeString }}
+                </code>
+              </pre>
             </div>
           </template>
 
@@ -135,7 +135,10 @@ export default {
       reset: false,
     };
   },
-  mounted() {
+  // mounted() {
+  //   Prism.highlightAll();
+  // },
+  updated() {
     Prism.highlightAll();
   },
   methods: {
