@@ -102,7 +102,7 @@
 
 <script>
 import Prism from 'prismjs';
-import 'prismjs/themes/prism-okaidia.css';
+import '@/assets/prism-custom.css';
 import BaseButton from '@/components/BaseButton.vue';
 import CodeCardLayout from '@/components/CodeCardLayout.vue';
 export default {
@@ -135,9 +135,9 @@ export default {
       reset: false,
     };
   },
-  // mounted() {
-  //   Prism.highlightAll();
-  // },
+  mounted() {
+    Prism.highlightAll();
+  },
   updated() {
     Prism.highlightAll();
   },
