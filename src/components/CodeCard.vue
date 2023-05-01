@@ -60,6 +60,9 @@
         <!-- Back Side -->
         <code-card-layout :cardHeading="algorithmData.name" rotated="[transform:rotateY(180deg)]">
           <template #content>
+            <div v-if="algorithmErr" class="mx-auto font-bold text-lg text-red-500">
+              The visualisation for this algorithm can currently not be displayed.
+            </div>
             <div class="flex flex-row justify-center items-end h-full py-6 space-x-2">
               <div
                 v-for="(num, index) in sortArray"
@@ -135,6 +138,7 @@ export default {
       },
       sortedElements: [],
       resetToStart: true,
+      algorithmErr: false,
     };
   },
   mounted() {
@@ -161,7 +165,11 @@ export default {
         this.resetVisual();
       }
       this.resetToStart = false;
-      algorithms[this.algorithmData.name](this.sortArray, this.colorMarkers, this.sortedElements);
+      try {
+        algorithms[this.algorithmData.name](this.sortArray, this.colorMarkers, this.sortedElements);
+      } catch (err) {
+        this.algorithmErr = true;
+      }
     },
     paintBars(index) {
       if (index === this.colorMarkers.selectedElement) {
