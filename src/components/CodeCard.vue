@@ -17,11 +17,11 @@
               <p>
                 {{ algorithmData.description }}
               </p>
-              <p>Time Complexity: {{ algorithmData.complexity }}</p>
+              <br />
+              <p class="font-bold font-mono">Time Complexity: {{ algorithmData.complexity }}</p>
             </div>
             <!-- Code Example -->
             <div v-show="displayCode" id="code-example" class="text-xs md:text-sm">
-              <!-- TODO: Change background color of code snippet. -->
               <pre class="language-javascript">
                 <code class="font-mono ">
                     {{ algorithmData.codeString }}
@@ -156,7 +156,6 @@ export default {
     },
     async runCode() {
       this.reset = false;
-      // this.bubbleSort(this.sortArray);
       this.selectionSort(this.sortArray);
     },
     paintBars(index) {
@@ -175,8 +174,12 @@ export default {
     resetVisual() {
       this.reset = true;
       this.randomizeArray();
-      this.selectedElement = 0;
-      this.sortedElement = -1;
+      this.colorMarkers = {
+        selectedElement: -1,
+        minElement: -1,
+        swapElement: -1,
+        sortedElements: [],
+      };
     },
     randomizeArray() {
       this.sortArray = [];
@@ -239,9 +242,3 @@ export default {
 </script>
 
 <style scoped></style>
-
-<!-- :class="{
-                  'bg-cyan-400': index === selectedElement,
-                  'bg-lime-500': index >= sortedElement,
-                  'bg-slate-200': index < sortedElement && index != selectedElement,
-                }" -->
