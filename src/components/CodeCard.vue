@@ -103,8 +103,10 @@
 <script>
 import Prism from 'prismjs';
 import '@/assets/prism-custom.css';
+import algorithms from '@/algorithms.js';
 import BaseButton from '@/components/BaseButton.vue';
 import CodeCardLayout from '@/components/CodeCardLayout.vue';
+
 export default {
   name: 'CodeCard',
   components: { BaseButton, CodeCardLayout },
@@ -130,9 +132,9 @@ export default {
         selectedElement: -1,
         minElement: -1,
         swapElement: -1,
-        sortedElements: [],
       },
-      reset: false,
+      sortedElements: [],
+      resetToStart: true,
     };
   },
   mounted() {
@@ -147,7 +149,7 @@ export default {
     },
     async flipToBack() {
       this.cardRotate = '[transform:rotateY(180deg)]';
-      await this.delay(1000);
+      await algorithms.delay(1000);
       this.runCode();
     },
     flipToFront() {
@@ -155,13 +157,16 @@ export default {
       this.resetVisual();
     },
     async runCode() {
-      this.reset = false;
-      this.selectionSort(this.sortArray);
+      if (!this.resetToStart) {
+        this.resetVisual();
+      }
+      this.resetToStart = false;
+      algorithms[this.algorithmData.name](this.sortArray, this.colorMarkers, this.sortedElements);
     },
     paintBars(index) {
       if (index === this.colorMarkers.selectedElement) {
         return 'bg-cyan-400';
-      } else if (this.colorMarkers.sortedElements.includes(index)) {
+      } else if (this.sortedElements.includes(index)) {
         return 'bg-lime-500';
       } else if (index === this.colorMarkers.minElement) {
         return 'bg-orange-400';
@@ -172,14 +177,14 @@ export default {
       }
     },
     resetVisual() {
-      this.reset = true;
       this.randomizeArray();
       this.colorMarkers = {
         selectedElement: -1,
         minElement: -1,
         swapElement: -1,
-        sortedElements: [],
       };
+      this.sortedElements = [];
+      this.resetToStart = true;
     },
     randomizeArray() {
       this.sortArray = [];
@@ -187,55 +192,6 @@ export default {
         let randInt = Math.floor(Math.random() * 49 + 1);
         this.sortArray.push(randInt);
       }
-    },
-    async bubbleSort(arr) {
-      for (let i = arr.length; i > 0; i--) {
-        for (let j = 0; j < i - 1; j++) {
-          if (this.reset) {
-            return;
-          }
-          this.sortedElement = i;
-          this.selectedElement = j;
-          if (arr[j] > arr[j + 1]) {
-            let temp = arr[j];
-            arr[j] = arr[j + 1];
-            arr[j + 1] = temp;
-            this.selectedElement = j + 1;
-          }
-          await this.delay(300);
-        }
-      }
-      this.sortedElement = 0;
-    },
-    async selectionSort(arr) {
-      for (let i = 0; i < arr.length; i++) {
-        let minIndex = i;
-        this.minElement = i;
-        this.swapElement = i;
-        for (let j = i + 1; j < arr.length; j++) {
-          if (this.reset) {
-            return;
-          }
-          this.selectedElement = j;
-          if (arr[j] < arr[minIndex]) {
-            minIndex = j;
-            this.minElement = j;
-          }
-          await this.delay(300);
-        }
-        if (minIndex !== i) {
-          let temp = arr[i];
-          arr[i] = arr[minIndex];
-          arr[minIndex] = temp;
-        }
-        this.minElement = i;
-        this.swapElement = minIndex;
-        await this.delay(500);
-        this.sortedElement = i;
-      }
-    },
-    delay(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
     },
   },
 };
