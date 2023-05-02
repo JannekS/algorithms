@@ -60,17 +60,19 @@
         <!-- Back Side -->
         <code-card-layout :cardHeading="algorithmData.name" rotated="[transform:rotateY(180deg)]">
           <template #content>
-            <div v-if="algorithmErr" class="mx-auto font-bold text-lg text-red-500">
-              The visualisation for this algorithm can currently not be displayed.
-            </div>
-            <div class="flex flex-row justify-center items-end h-full py-6 space-x-2">
-              <div
-                v-for="(num, index) in sortArray"
-                :key="index"
-                class="w-4 rounded-sm"
-                :class="paintBars(index)"
-                :style="{ height: num * 6 + 'px' }"
-              ></div>
+            <div class="flex flex-col items-center justify-end h-full">
+              <div v-if="algorithmErr" class="absloute font-bold text-lg text-red-500">
+                The visualisation for this algorithm can currently not be displayed.
+              </div>
+              <div class="flex flex-row justify-center items-end h-96 py-6 space-x-2">
+                <div
+                  v-for="(num, index) in sortArray"
+                  :key="index"
+                  class="w-4 rounded-sm"
+                  :class="paintBars(index)"
+                  :style="{ height: num * 6 + 'px' }"
+                ></div>
+              </div>
             </div>
           </template>
 
@@ -193,6 +195,7 @@ export default {
       };
       this.sortedElements = [];
       this.resetToStart = true;
+      this.algorithmErr = false;
     },
     randomizeArray() {
       this.sortArray = [];
