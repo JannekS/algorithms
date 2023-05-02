@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen w-full flex flex-row items-center justify-center">
     <!-- Front & Back Side Container-->
-    <div class="w-10/12 h-2/3 max-w-lg 2xl:h-1/2 group [perspective:900px]">
+    <div class="w-11/12 h-3/4 max-w-lg md:h-2/3 2xl:h-1/2 group [perspective:900px]">
       <!-- Inner Container -->
       <div
         id="card-container"
@@ -64,11 +64,11 @@
               <div v-if="algorithmErr" class="absloute font-bold text-lg text-red-500">
                 The visualisation for this algorithm can currently not be displayed.
               </div>
-              <div class="flex flex-row justify-center items-end h-96 py-6 space-x-2">
+              <div class="flex flex-row justify-center items-end h-96 py-6 space-x-1 md:space-x-2">
                 <div
                   v-for="(num, index) in sortArray"
                   :key="index"
-                  class="w-4 rounded-sm"
+                  class="w-3 rounded-sm md:w-4 min-w-min"
                   :class="paintBars(index)"
                   :style="{ height: num * 6 + 'px' }"
                 ></div>
