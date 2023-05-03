@@ -25,12 +25,10 @@
                 <p class="font-bold font-mono">Time Complexity: {{ algorithmData.complexity }}</p>
               </div>
               <!-- Code Example -->
-              <div v-show="displayCode" id="code-example" class="text-xs md:text-sm">
-                <pre class="language-javascript">
-                <code class="font-mono ">
-                    {{ algorithmData.codeString }}
-                </code>
-              </pre>
+              <div v-show="displayCode" id="code-example" class="text-xs md:text-sm mt-[-20px]">
+                <pre
+                  class="language-javascript"
+                ><code class="font-mono ">{{ algorithmData.codeString }}</code></pre>
               </div>
             </template>
 
@@ -195,10 +193,10 @@ export default {
       }
     },
     paintBars(index) {
-      if (index === this.colorMarkers.selectedElement) {
-        return 'bg-cyan-400';
-      } else if (this.sortedElements.includes(index)) {
+      if (this.sortedElements.includes(index)) {
         return 'bg-lime-500';
+      } else if (index === this.colorMarkers.selectedElement) {
+        return 'bg-cyan-400';
       } else if (index === this.colorMarkers.minElement) {
         return 'bg-orange-400';
       } else if (index === this.colorMarkers.swapElement) {

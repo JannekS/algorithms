@@ -12,6 +12,7 @@ async function bubbleSort(arr, colorMarkers, sortedElements) {
       await delay(300);
     }
   }
+  sortedElements.push(1);
   sortedElements.push(0);
 }
 

@@ -11,7 +11,7 @@
     "name": "selectionSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "n^2",
-    "codeString": "\nfunction selectionSort(arr) {\nfor (let i = 0; i < arr.length; i++) {\n\tlet minIndex = i;\n\tfor (let j = i + 1; j < arr.length; j++) {\n\t\tif (arr[j] < arr[minIndex]) {\n\t\t\tminIndex = j;\n\t\t}\n\t}\n\tif (minIndex !== i) {\n\t\tlet temp = arr[i];\n\t\tarr[i] = arr[minIndex];\n\t\tarr[minIndex] = temp;\n\t}\n}\n\nselectionSort(arr)"
+    "codeString": "\nfunction selectionSort(arr) {\n\tfor (let i = 0; i < arr.length; i++) {\n\t\tlet minIndex = i;\n\t\tfor (let j = i + 1; j < arr.length; j++) {\n\t\t\tif (arr[j] < arr[minIndex]) {\n\t\t\t\tminIndex = j;\n\t\t\t}\n\t\t}\n\t\tif (minIndex !== i) {\n\t\t\tlet temp = arr[i];\n\t\t\tarr[i] = arr[minIndex];\n\t\t\tarr[minIndex] = temp;\n\t\t}\n\t}\n}\n\nselectionSort(arr)"
   },
   {
     "id": 3,
