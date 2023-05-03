@@ -1,14 +1,18 @@
 <template>
-  <ul class="flex flex-col justify-center items-center mt-10">
-    <li v-for="algorithmObj in algorithmData" :key="algorithmObj.id">
-      <algorithm-btn :algorithm="algorithmObj.name" @btnClicked="openCodeCard" />
-    </li>
-  </ul>
+  <div class="h-screen">
+    <ul class="flex flex-col justify-center items-center mt-10">
+      <li v-for="algorithmObj in algorithmData" :key="algorithmObj.id">
+        <algorithm-btn :algorithm="algorithmObj.name" @btnClicked="openCodeCard" />
+      </li>
+    </ul>
+  </div>
 
   <code-card :algorithmData="algorithmData[selectedAlgorithm]" />
 </template>
 
 <script>
+import useModalStore from '@/Stores/modal.js';
+import { mapStores, mapWritableState } from 'pinia';
 import CodeCard from '@/components/CodeCard.vue';
 import AlgorithmBtn from '../components/AlgorithmBtn.vue';
 export default {
@@ -41,9 +45,14 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapStores(useModalStore),
+    ...mapWritableState(useModalStore, ['isOpen']),
+  },
   methods: {
     openCodeCard(algorithm) {
       this.selectedAlgorithm = algorithm;
+      this.isOpen = true;
     },
   },
 };
