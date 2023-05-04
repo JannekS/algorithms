@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen">
-    <ul class="flex flex-col justify-center items-center mt-10">
+  <div class="h-screen bg-gradient-to-bl from-teal-100 to-sky-400">
+    <ul class="flex flex-col justify-center items-center pt-10">
       <li v-for="algorithmObj in algorithmData" :key="algorithmObj.id">
         <algorithm-btn :algorithm="algorithmObj.name" @btnClicked="openCodeCard" />
       </li>
