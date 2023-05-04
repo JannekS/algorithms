@@ -6,8 +6,11 @@
       </li>
     </ul>
   </div>
-
-  <code-card :algorithmData="algorithmData[selectedAlgorithm]" />
+  <Transition>
+    <div v-show="isOpen">
+      <code-card :algorithmData="algorithmData[selectedAlgorithm]" />
+    </div>
+  </Transition>
 </template>
 
 <script>
@@ -58,4 +61,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-leave-active {
+  transition: 0.5s;
+}
+</style>
