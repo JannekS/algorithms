@@ -6,11 +6,9 @@
       </li>
     </ul>
   </div>
-  <Transition>
-    <div v-show="isOpen">
-      <code-card :algorithmData="algorithmData[selectedAlgorithm]" />
-    </div>
-  </Transition>
+  <modal-layer :modalOpen="isOpen">
+    <code-card :algorithmData="algorithmData[selectedAlgorithm]" />
+  </modal-layer>
 </template>
 
 <script>
@@ -18,11 +16,13 @@ import useModalStore from '@/Stores/modal.js';
 import { mapStores, mapWritableState } from 'pinia';
 import CodeCard from '@/components/CodeCard.vue';
 import AlgorithmBtn from '../components/AlgorithmBtn.vue';
+import ModalLayer from '@/components/ModalLayer.vue';
 export default {
   name: 'HomeView',
   components: {
     CodeCard,
     AlgorithmBtn,
+    ModalLayer,
   },
   mounted: async function () {
     const url = 'http://localhost:5174/algorithmData.json'; // TODO: Use path.
@@ -61,8 +61,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-leave-active {
-  transition: 0.5s;
-}
-</style>
+<style scoped></style>
