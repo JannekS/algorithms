@@ -167,8 +167,11 @@ export default {
     Prism.highlightAll();
   },
   methods: {
-    closeModal() {
-      this.flipToFront();
+    async closeModal() {
+      if (this.cardRotate != '') {
+        this.flipToFront();
+        await algorithms.delay(300);
+      }
       this.isOpen = false;
     },
     toggleInfoCode() {
