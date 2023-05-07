@@ -41,8 +41,36 @@ async function selectionSort(arr, colorMarkers, sortedElements) {
   }
 }
 
+async function insertionSort(arr, colorMarkers, sortedElements) {
+  sortedElements.push(0);
+  for (let i = 1; i < arr.length; i++) {
+    let currentValue = arr[i];
+    colorMarkers.selectedElement = i;
+    await delay(300);
+    colorMarkers.selectedElement = -1;
+    colorMarkers.insertionElement = currentValue;
+    let j = i - 1;
+    while (j >= 0 && arr[j] > currentValue) {
+      await delay(300);
+      arr[j + 1] = arr[j];
+      colorMarkers.swapElement = j + 1;
+      j--;
+    }
+    await delay(300);
+    arr[j + 1] = currentValue;
+    colorMarkers.selectedElement = j + 1;
+    colorMarkers.insertionElement = 0.01;
+    await delay(300);
+    sortedElements.push(i);
+  }
+  colorMarkers.selectedElement = -1;
+  colorMarkers.swapElement = -1;
+  colorMarkers.insertionElement = 0;
+  return arr;
+}
+
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export default { bubbleSort, selectionSort, delay };
+export default { bubbleSort, selectionSort, insertionSort, delay };
