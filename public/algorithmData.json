@@ -18,7 +18,7 @@
     "name": "insertionSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "n^2",
-    "codeString": "\nfunction insertionSort(arr) {\n\t...\n}\n\nselectionSort(arr)"
+    "codeString": "\nfunction insertionSort(arr) {\n\tfor (let i = 1; i < arr.length; i++) {\n\t\tlet currentValue = arr[i];\n\t\tlet j = i - 1;\n\t\twhile (j >= 0 && arr[j] > currentValue) {\n\t\t\tarr[j + 1] = arr[j];\n\t\t\tj--;\n\t\t}\n\t\tarr[j + 1] = currentValue;\n\t}\n\treturn arr;\n}\n\nselectionSort(arr)"
   },
   {
     "id": 4,
