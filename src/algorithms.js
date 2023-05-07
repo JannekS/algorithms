@@ -14,6 +14,7 @@ async function bubbleSort(arr, colorMarkers, sortedElements) {
   }
   sortedElements.push(1);
   sortedElements.push(0);
+  colorMarkers.selectedElement = -1;
 }
 
 async function selectionSort(arr, colorMarkers, sortedElements) {
@@ -39,6 +40,8 @@ async function selectionSort(arr, colorMarkers, sortedElements) {
     await delay(500);
     sortedElements.push(i);
   }
+  colorMarkers.selectedElement = -1;
+  colorMarkers.swapElement = -1;
 }
 
 async function insertionSort(arr, colorMarkers, sortedElements) {

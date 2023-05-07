@@ -65,14 +65,20 @@
             <div v-if="algorithmErr" class="absloute font-bold text-lg text-red-500">
               The visualisation for this algorithm can currently not be displayed.
             </div>
-            <div class="flex flex-row justify-center items-end h-96 py-6 space-x-1 md:space-x-2">
+            <div class="flex flex-row justify-center items-end h-96 py-6 space-x-1">
               <div
                 v-for="(num, index) in sortArray"
                 :key="index"
-                class="w-3 rounded-sm md:w-4 min-w-min"
+                class="w-3 rounded-sm md:w-4"
                 :class="paintBars(index)"
                 :style="{ height: num * 6 + 'px' }"
               ></div>
+              <div v-if="colorMarkers.insertionElement">
+                <div
+                  class="w-3 ml-3 rounded-sm md:w-4 bg-cyan-400"
+                  :style="{ height: colorMarkers.insertionElement * 6 + 'px' }"
+                ></div>
+              </div>
             </div>
           </div>
         </template>
@@ -139,6 +145,7 @@ export default {
         selectedElement: -1,
         minElement: -1,
         swapElement: -1,
+        insertionElement: 0,
       },
       sortedElements: [],
       resetToStart: true,
@@ -187,14 +194,14 @@ export default {
       }
     },
     paintBars(index) {
-      if (this.sortedElements.includes(index)) {
-        return 'bg-lime-500';
-      } else if (index === this.colorMarkers.selectedElement) {
+      if (index === this.colorMarkers.selectedElement) {
         return 'bg-cyan-400';
       } else if (index === this.colorMarkers.minElement) {
         return 'bg-orange-400';
       } else if (index === this.colorMarkers.swapElement) {
         return 'bg-orange-300';
+      } else if (this.sortedElements.includes(index)) {
+        return 'bg-lime-500';
       } else {
         return 'bg-slate-200';
       }
@@ -205,6 +212,7 @@ export default {
         selectedElement: -1,
         minElement: -1,
         swapElement: -1,
+        insertionElement: null,
       };
       this.sortedElements = [];
       this.resetToStart = true;
