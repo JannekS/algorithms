@@ -154,7 +154,7 @@ export default {
   },
   computed: {
     ...mapStores(useModalStore),
-    ...mapWritableState(useModalStore, ['isOpen']),
+    ...mapWritableState(useModalStore, ['modalDisplayed']),
   },
   mounted() {
     Prism.highlightAll();
@@ -168,7 +168,7 @@ export default {
         this.flipToFront();
         await algorithms.delay(300);
       }
-      this.isOpen = false;
+      this.modalDisplayed = false;
     },
     toggleInfoCode() {
       this.displayCode = !this.displayCode;

@@ -6,7 +6,7 @@
       </li>
     </ul>
   </div>
-  <modal-layer :modalOpen="isOpen">
+  <modal-layer :modalOpen="modalDisplayed">
     <code-card :algorithmData="algorithmData[selectedAlgorithm]" />
   </modal-layer>
 </template>
@@ -50,12 +50,12 @@ export default {
   },
   computed: {
     ...mapStores(useModalStore),
-    ...mapWritableState(useModalStore, ['isOpen']),
+    ...mapWritableState(useModalStore, ['modalDisplayed']),
   },
   methods: {
     openCodeCard(algorithm) {
       this.selectedAlgorithm = algorithm;
-      this.isOpen = true;
+      this.modalDisplayed = true;
     },
   },
 };
