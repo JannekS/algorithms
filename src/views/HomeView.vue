@@ -25,7 +25,7 @@ export default {
     ModalLayer,
   },
   mounted: async function () {
-    const url = 'http://localhost:5174/algorithmData.json'; // TODO: Use path.
+    const url = '/algorithmData.json';
     try {
       const response = await fetch(url);
       const result = await response.json();
