@@ -4,41 +4,41 @@
     "name": "bubbleSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "n^2",
-    "codeString": "\nfunction bubbleSort(arr) {\n\tfor (let i = arr.length; i > 0; i--) {\n\t\tfor (var j = 0; j < i - 1; j++) {\n\t\t\tif (arr[j] > arr[j + 1]) {\n\t\t\t\tlet temp = arr[j];\n\t\t\t\tarr[j] = arr[j + 1];\n\t\t\t\tarr[j + 1] = temp;\n\t\t\t}\n\t\t}\n\t}\n}\n\nbubbleSort(arr)"
+    "codeString": "\nfunction bubbleSort(arr) {\n\tfor (let i = arr.length; i > 0; i--) {\n\t\tfor (var j = 0; j < i - 1; j++) {\n\t\t\tif (arr[j] > arr[j + 1]) {\n\t\t\t\tlet temp = arr[j];\n\t\t\t\tarr[j] = arr[j + 1];\n\t\t\t\tarr[j + 1] = temp;\n\t\t\t}\n\t\t}\n\t}\n\treturn arr;\n}\n\nconst sortedArr = bubbleSort(unsortedArr);"
   },
   {
     "id": 2,
     "name": "selectionSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "n^2",
-    "codeString": "\nfunction selectionSort(arr) {\n\tfor (let i = 0; i < arr.length; i++) {\n\t\tlet minIndex = i;\n\t\tfor (let j = i + 1; j < arr.length; j++) {\n\t\t\tif (arr[j] < arr[minIndex]) {\n\t\t\t\tminIndex = j;\n\t\t\t}\n\t\t}\n\t\tif (minIndex !== i) {\n\t\t\tlet temp = arr[i];\n\t\t\tarr[i] = arr[minIndex];\n\t\t\tarr[minIndex] = temp;\n\t\t}\n\t}\n}\n\nselectionSort(arr)"
+    "codeString": "\nfunction selectionSort(arr) {\n\tfor (let i = 0; i < arr.length; i++) {\n\t\tlet minIndex = i;\n\t\tfor (let j = i + 1; j < arr.length; j++) {\n\t\t\tif (arr[j] < arr[minIndex]) {\n\t\t\t\tminIndex = j;\n\t\t\t}\n\t\t}\n\t\tif (minIndex !== i) {\n\t\t\tlet temp = arr[i];\n\t\t\tarr[i] = arr[minIndex];\n\t\t\tarr[minIndex] = temp;\n\t\t}\n\t}\n\treturn arr;\n}\n\nconst sortedArr = selectionSort(unsortedArr);"
   },
   {
     "id": 3,
     "name": "insertionSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "n^2",
-    "codeString": "\nfunction insertionSort(arr) {\n\tfor (let i = 1; i < arr.length; i++) {\n\t\tlet currentValue = arr[i];\n\t\tlet j = i - 1;\n\t\twhile (j >= 0 && arr[j] > currentValue) {\n\t\t\tarr[j + 1] = arr[j];\n\t\t\tj--;\n\t\t}\n\t\tarr[j + 1] = currentValue;\n\t}\n\treturn arr;\n}\n\nselectionSort(arr)"
+    "codeString": "\nfunction insertionSort(arr) {\n\tfor (let i = 1; i < arr.length; i++) {\n\t\tlet currentValue = arr[i];\n\t\tlet j = i - 1;\n\t\twhile (j >= 0 && arr[j] > currentValue) {\n\t\t\tarr[j + 1] = arr[j];\n\t\t\tj--;\n\t\t}\n\t\tarr[j + 1] = currentValue;\n\t}\n\treturn arr;\n}\n\nconst sortedArr = insertionSort(unsortedArr);"
   },
   {
     "id": 4,
     "name": "mergeSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "",
-    "codeString": "\nfunction insertionSort(arr) {\n\t...\n}\n\nselectionSort(arr)"
+    "codeString": "\nfunction mergeSort(arr) {\n\t...\n}\n\nconst sortedArr = mergeSort(unsortedArr);"
   },
   {
     "id": 5,
     "name": "quickSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "",
-    "codeString": "\nfunction insertionSort(arr) {\n\t...\n}\n\nselectionSort(arr)"
+    "codeString": "\nfunction quickSort(arr) {\n\t...\n}\n\nconst sortedArr = quickSort(unsortedArr);"
   },
   {
     "id": 6,
     "name": "radixSort",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem obcaecati ipsa laudantium pariatur amet illo repellendus neque error quisquam, porro mollitia quae est placeat, consequuntur aliquid ex ipsum exercitationem aspernatur! Velsaepe molestias facere, distinctio sint cum reprehenderit omnis nobis eveniet explicabo voluptatem magnam quae id placeat tenetur ad ratione fuga soluta excepturi quo. Cupiditate, commodi iusto. Atque, neque aspernatur.",
     "complexity": "",
-    "codeString": "\nfunction insertionSort(arr) {\n\t...\n}\n\nselectionSort(arr)"
+    "codeString": "\nfunction radixSort(arr) {\n\t...\n}\n\nconst sortedArr = radixSort(unsortedArr);"
   }
 ]
