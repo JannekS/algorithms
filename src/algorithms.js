@@ -42,6 +42,7 @@ async function selectionSort(arr, colorMarkers, sortedElements) {
   }
   colorMarkers.selectedElement = -1;
   colorMarkers.swapElement = -1;
+  colorMarkers.minElement = -1;
 }
 
 async function insertionSort(arr, colorMarkers, sortedElements) {
