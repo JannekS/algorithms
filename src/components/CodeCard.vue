@@ -61,16 +61,17 @@
         @closeBtnClicked="closeModal"
       >
         <template #content>
+          <!-- Visualisation -->
           <div class="flex flex-col items-center justify-end h-full">
             <div v-if="algorithmErr" class="absloute font-bold text-lg text-red-500">
               The visualisation for this algorithm can currently not be displayed.
             </div>
-            <div class="flex flex-row justify-center items-end h-96 py-6 space-x-1">
+            <div class="flex flex-row justify-center items-end h-96 py-6">
               <div
                 v-for="(num, index) in sortArray"
                 :key="index"
-                class="w-3 rounded-sm md:w-4"
-                :class="paintBars(index)"
+                class="w-4 ml-1 rounded-sm md:ml-2"
+                :class="[paintBars(index), { 'ml-4': dividedElements.includes(index) }]"
                 :style="{ height: num * 6 + 'px' }"
               ></div>
               <div v-if="colorMarkers.insertionElement">
@@ -140,7 +141,7 @@ export default {
       displayInfo: '',
       displayCode: false,
       cardRotate: '',
-      sortArray: [6, 30, 21, 9, 5, 18, 35, 47, 19, 3, 41, 15, 29, 31, 7, 45, 30, 8, 14, 28],
+      sortArray: [6, 30, 21, 9, 5, 18, 35, 47, 19, 3, 41, 15, 29, 31, 7, 45],
       colorMarkers: {
         selectedElement: -1,
         minElement: -1,
@@ -148,6 +149,7 @@ export default {
         insertionElement: 0,
       },
       sortedElements: [],
+      dividedElements: [],
       resetToStart: true,
       algorithmErr: false,
     };
@@ -188,7 +190,21 @@ export default {
       }
       this.resetToStart = false;
       try {
-        algorithms[this.algorithmData.name](this.sortArray, this.colorMarkers, this.sortedElements);
+        if (this.algorithmData.name === 'mergeSort') {
+          console.log('MergeSort should be visualised.');
+          algorithms[this.algorithmData.name](
+            this.sortArray,
+            this.colorMarkers,
+            this.sortedElements,
+            this.dividedElements
+          );
+        } else {
+          algorithms[this.algorithmData.name](
+            this.sortArray,
+            this.colorMarkers,
+            this.sortedElements
+          );
+        }
       } catch (err) {
         this.algorithmErr = true;
       }
@@ -206,6 +222,13 @@ export default {
         return 'bg-slate-200';
       }
     },
+    separateBars(index) {
+      if (this.dividedElements.includes(index)) {
+        return 'mr-2';
+      } else {
+        return 'mr-0';
+      }
+    },
     resetVisual() {
       this.randomizeArray();
       this.colorMarkers = {
@@ -220,7 +243,7 @@ export default {
     },
     randomizeArray() {
       this.sortArray = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 16; i++) {
         let randInt = Math.floor(Math.random() * 49 + 1);
         this.sortArray.push(randInt);
       }
